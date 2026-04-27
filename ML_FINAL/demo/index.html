@@ -1,0 +1,941 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bias-Aware Resume Matching Demo</title>
+  <style>
+    :root {
+      --ink: #202124;
+      --muted: #5f6368;
+      --line: #d9dee8;
+      --paper: #f7f9fc;
+      --panel: #ffffff;
+      --blue: #2563eb;
+      --teal: #0f766e;
+      --rose: #be123c;
+      --amber: #b45309;
+      --shadow: 0 12px 28px rgba(32, 33, 36, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--ink);
+      background: var(--paper);
+    }
+
+    header {
+      background: #111827;
+      color: #fff;
+      padding: 22px 28px;
+      border-bottom: 5px solid var(--teal);
+    }
+
+    header h1 {
+      margin: 0 0 8px;
+      font-size: 28px;
+      line-height: 1.15;
+      letter-spacing: 0;
+    }
+
+    header p {
+      margin: 0;
+      max-width: 980px;
+      color: #d1d5db;
+      line-height: 1.45;
+      font-size: 15px;
+    }
+
+    main {
+      width: min(1180px, calc(100% - 32px));
+      margin: 22px auto 36px;
+    }
+
+    .toolbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 18px;
+    }
+
+    .tabs {
+      display: inline-flex;
+      border: 1px solid var(--line);
+      background: var(--panel);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .tab {
+      border: 0;
+      border-right: 1px solid var(--line);
+      background: transparent;
+      color: var(--muted);
+      padding: 10px 14px;
+      min-width: 118px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .tab:last-child {
+      border-right: 0;
+    }
+
+    .tab.active {
+      background: var(--blue);
+      color: #fff;
+    }
+
+    .badge {
+      border: 1px solid var(--line);
+      background: var(--panel);
+      border-radius: 999px;
+      padding: 8px 12px;
+      color: var(--muted);
+      font-size: 13px;
+      white-space: nowrap;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+      margin-bottom: 18px;
+    }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+      padding: 16px;
+      min-height: 112px;
+    }
+
+    .metric-label {
+      margin: 0 0 10px;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    .metric-value {
+      margin: 0;
+      font-size: 30px;
+      font-weight: 800;
+      line-height: 1;
+    }
+
+    .metric-note {
+      margin: 10px 0 0;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.35;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 1.3fr 0.7fr;
+      gap: 18px;
+      align-items: start;
+    }
+
+    .matcher-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 360px;
+      gap: 18px;
+      align-items: start;
+    }
+
+    .panel {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+      padding: 18px;
+    }
+
+    h2 {
+      margin: 0 0 14px;
+      font-size: 20px;
+      letter-spacing: 0;
+    }
+
+    h3 {
+      margin: 18px 0 10px;
+      font-size: 15px;
+    }
+
+    .chart {
+      display: grid;
+      gap: 14px;
+      margin-top: 8px;
+    }
+
+    .bar-row {
+      display: grid;
+      grid-template-columns: 92px 1fr 72px;
+      align-items: center;
+      gap: 12px;
+      min-height: 34px;
+      font-size: 14px;
+    }
+
+    .track {
+      height: 22px;
+      border-radius: 6px;
+      background: #eef2f7;
+      overflow: hidden;
+      border: 1px solid #e3e8f0;
+    }
+
+    .fill {
+      height: 100%;
+      min-width: 2px;
+      border-radius: 5px;
+    }
+
+    .fill.name {
+      background: var(--rose);
+    }
+
+    .fill.pronoun {
+      background: var(--teal);
+    }
+
+    .fill.university {
+      background: var(--amber);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 8px;
+      font-size: 14px;
+    }
+
+    th,
+    td {
+      border-bottom: 1px solid var(--line);
+      padding: 10px 8px;
+      text-align: right;
+      vertical-align: top;
+    }
+
+    th:first-child,
+    td:first-child {
+      text-align: left;
+    }
+
+    th {
+      color: var(--muted);
+      font-size: 12px;
+      text-transform: uppercase;
+    }
+
+    .callout {
+      border-left: 4px solid var(--blue);
+      background: #eff6ff;
+      padding: 12px;
+      border-radius: 6px;
+      color: #1f2937;
+      line-height: 1.45;
+      font-size: 14px;
+    }
+
+    label {
+      display: block;
+      margin: 14px 0 6px;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    textarea,
+    input[type="file"] {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fbfcff;
+      color: var(--ink);
+      font: inherit;
+    }
+
+    textarea {
+      min-height: 170px;
+      resize: vertical;
+      padding: 12px;
+      line-height: 1.45;
+    }
+
+    input[type="file"] {
+      padding: 10px;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .btn {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--panel);
+      color: var(--ink);
+      padding: 10px 13px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .btn.primary {
+      border-color: var(--blue);
+      background: var(--blue);
+      color: #fff;
+    }
+
+    .btn.teal {
+      border-color: var(--teal);
+      background: var(--teal);
+      color: #fff;
+    }
+
+    .score-box {
+      display: grid;
+      place-items: center;
+      min-height: 150px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fbfcff;
+      margin-bottom: 14px;
+    }
+
+    .score {
+      font-size: 54px;
+      font-weight: 900;
+      line-height: 1;
+    }
+
+    .score-caption {
+      color: var(--muted);
+      font-size: 13px;
+      margin-top: 8px;
+    }
+
+    .pill-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 10px 0 0;
+    }
+
+    .pill {
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: #f8fafc;
+      padding: 6px 9px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .status {
+      margin: 8px 0 0;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.35;
+    }
+
+    .status.error {
+      color: var(--rose);
+      font-weight: 700;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .steps {
+      display: grid;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .step {
+      display: grid;
+      grid-template-columns: 32px 1fr;
+      gap: 10px;
+      align-items: start;
+      padding: 12px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fbfcff;
+    }
+
+    .step span {
+      display: grid;
+      place-items: center;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--blue);
+      color: #fff;
+      font-weight: 800;
+      font-size: 13px;
+    }
+
+    .step p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.45;
+    }
+
+    code {
+      font-family: "Courier New", monospace;
+      background: #eef2f7;
+      border-radius: 4px;
+      padding: 2px 4px;
+    }
+
+    @media (max-width: 860px) {
+      header {
+        padding: 18px;
+      }
+
+      header h1 {
+        font-size: 23px;
+      }
+
+      .toolbar,
+      .layout,
+      .matcher-layout {
+        display: block;
+      }
+
+      .tabs {
+        width: 100%;
+        margin-bottom: 12px;
+      }
+
+      .tab {
+        flex: 1;
+        min-width: 0;
+      }
+
+      .badge {
+        display: inline-block;
+        margin-bottom: 14px;
+      }
+
+      .grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .panel {
+        margin-bottom: 16px;
+      }
+    }
+
+    @media (max-width: 560px) {
+      main {
+        width: min(100% - 20px, 1180px);
+      }
+
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      .bar-row {
+        grid-template-columns: 78px 1fr 58px;
+        gap: 8px;
+      }
+
+      table {
+        font-size: 12px;
+      }
+
+      th,
+      td {
+        padding: 8px 4px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Bias-Aware Job-Resume Matching Demo</h1>
+    <p>A compact dashboard for presenting the project: controlled resume variants are compared against job descriptions to see whether identity-coded changes move matching scores.</p>
+  </header>
+
+  <main>
+    <div class="toolbar">
+      <div class="tabs" role="tablist" aria-label="Demo views">
+        <button class="tab active" data-view="matcher" type="button">Matcher</button>
+        <button class="tab" data-view="audit" type="button">Audit</button>
+        <button class="tab" data-view="dataset" type="button">Dataset</button>
+        <button class="tab" data-view="llm" type="button">LLM</button>
+      </div>
+      <div class="badge">40 resume variants · 5 jobs · 200 comparisons</div>
+    </div>
+
+    <section id="matcher" class="view">
+      <div class="matcher-layout">
+        <div class="panel">
+          <h2>Try a Resume Match</h2>
+          <div class="callout">Paste a resume and job description, or upload a plain-text resume. This browser demo uses local keyword similarity for instant scoring; the repo scripts run the formal SBERT and LLM experiments.</div>
+
+          <label for="resumeFile">Upload Resume</label>
+          <input id="resumeFile" type="file" accept=".pdf,.txt,.md,.csv,application/pdf,text/plain,text/markdown,text/csv">
+          <p class="status" id="uploadStatus">Supports PDF resumes with selectable text, plus TXT, MD, and CSV files.</p>
+
+          <label for="resumeText">Resume</label>
+          <textarea id="resumeText" placeholder="Paste resume text here..."></textarea>
+
+          <label for="jobText">Job Description</label>
+          <textarea id="jobText" placeholder="Paste job description here..."></textarea>
+
+          <div class="actions">
+            <button class="btn primary" id="analyzeBtn" type="button">Analyze Match</button>
+            <button class="btn teal" id="llmAnalyzeBtn" type="button">Analyze with LLM</button>
+            <button class="btn" id="sampleBtn" type="button">Load Sample</button>
+            <button class="btn" id="clearBtn" type="button">Clear</button>
+          </div>
+        </div>
+
+        <aside class="panel">
+          <h2>Result</h2>
+          <div class="score-box">
+            <div>
+              <div class="score" id="matchScore">--</div>
+              <div class="score-caption">Match score</div>
+            </div>
+          </div>
+
+          <table>
+            <tbody>
+              <tr><td>Shared keywords</td><td id="keywordCount">--</td></tr>
+              <tr><td>Bias-masked score</td><td id="maskedScore">--</td></tr>
+              <tr><td>Score movement</td><td id="scoreDelta">--</td></tr>
+              <tr><td>LLM score</td><td id="llmScore">--</td></tr>
+            </tbody>
+          </table>
+
+          <h3>LLM Rationale</h3>
+          <div class="callout" id="llmRationale">Start the optional local server, then click Analyze with LLM.</div>
+
+          <h3>Detected Identity Cues</h3>
+          <div class="pill-list" id="cueList">
+            <span class="pill">None analyzed yet</span>
+          </div>
+
+          <h3>Top Matched Terms</h3>
+          <div class="pill-list" id="termList">
+            <span class="pill">None analyzed yet</span>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section id="audit" class="view hidden">
+      <div class="grid">
+        <div class="card">
+          <p class="metric-label">Largest Signal</p>
+          <p class="metric-value">Name</p>
+          <p class="metric-note">Highest overall mean absolute score movement.</p>
+        </div>
+        <div class="card">
+          <p class="metric-label">Name Mean |Δ|</p>
+          <p class="metric-value">0.0198</p>
+          <p class="metric-note">Across all resume-job pairs.</p>
+        </div>
+        <div class="card">
+          <p class="metric-label">Same-Domain Name |Δ|</p>
+          <p class="metric-value">0.0236</p>
+          <p class="metric-note">When resume and job domain match.</p>
+        </div>
+        <div class="card">
+          <p class="metric-label">Max Observed Shift</p>
+          <p class="metric-value">0.0812</p>
+          <p class="metric-note">Largest absolute SBERT score change.</p>
+        </div>
+      </div>
+
+      <div class="layout">
+        <div class="panel">
+          <h2>Counterfactual Score Movement</h2>
+          <div class="chart" id="overallChart" aria-label="Overall mean absolute delta chart"></div>
+
+          <h3>SBERT Summary</h3>
+          <table>
+            <thead>
+              <tr>
+                <th>Signal</th>
+                <th>Mean Δ</th>
+                <th>Median Δ</th>
+                <th>Mean |Δ|</th>
+              </tr>
+            </thead>
+            <tbody id="overallRows"></tbody>
+          </table>
+        </div>
+
+        <aside class="panel">
+          <h2>Interpretation</h2>
+          <div class="callout">
+            The audit does not prove real-world discrimination, but it shows that a semantic matching model can change scores when qualifications stay fixed and only identity-coded text changes.
+          </div>
+          <h3>Same-Domain Check</h3>
+          <div class="chart" id="domainChart" aria-label="Same-domain mean absolute delta chart"></div>
+        </aside>
+      </div>
+    </section>
+
+    <section id="dataset" class="view hidden">
+      <div class="layout">
+        <div class="panel">
+          <h2>Experimental Setup</h2>
+          <div class="steps">
+            <div class="step"><span>1</span><p>Create synthetic base resumes across software engineering, finance, marketing, healthcare, and education.</p></div>
+            <div class="step"><span>2</span><p>Generate counterfactual variants where only name, pronouns, or university changes.</p></div>
+            <div class="step"><span>3</span><p>Score every resume variant against every job description with Sentence-BERT cosine similarity.</p></div>
+            <div class="step"><span>4</span><p>Compare each variant score to the corresponding original resume score for the same job.</p></div>
+          </div>
+        </div>
+        <div class="panel">
+          <h2>Files to Show</h2>
+          <table>
+            <tbody>
+              <tr><td><code>ML_FINAL/data/resume_variants.csv</code></td></tr>
+              <tr><td><code>ML_FINAL/results/sbert_scores.csv</code></td></tr>
+              <tr><td><code>ML_FINAL/report/final_report.pdf</code></td></tr>
+              <tr><td><code>ML_FINAL/scripts/run_llm_openai.py</code></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section id="llm" class="view hidden">
+      <div class="layout">
+        <div class="panel">
+          <h2>Current LLM Extension</h2>
+          <p class="callout">The repo includes a prompt-based scorer using OpenAI's Responses API with <code>gpt-5-mini</code>. It returns a structured JSON match score and rationale for the same resume-job pairs.</p>
+          <h3>Run Commands</h3>
+          <div class="steps">
+            <div class="step"><span>1</span><p><code>export OPENAI_API_KEY=your_key_here</code></p></div>
+            <div class="step"><span>2</span><p><code>python ML_FINAL/scripts/run_llm_openai.py --limit 5</code></p></div>
+            <div class="step"><span>3</span><p><code>python ML_FINAL/scripts/run_llm_openai.py</code></p></div>
+            <div class="step"><span>4</span><p><code>python ML_FINAL/scripts/analyze_results.py --scores ML_FINAL/results/llm_scores.csv --score-col llm_score</code></p></div>
+          </div>
+        </div>
+        <div class="panel">
+          <h2>Why Include It</h2>
+          <table>
+            <tbody>
+              <tr><td>Responds to the proposal feedback asking for a current LLM in addition to Sentence-BERT.</td></tr>
+              <tr><td>Uses the same counterfactual audit design, so results are comparable.</td></tr>
+              <tr><td>Keeps credentials out of the repo and makes LLM scoring optional for graders.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script type="module">
+    import * as pdfjsLib from "./vendor/pdfjs/pdf.mjs";
+
+    pdfjsLib.GlobalWorkerOptions.workerSrc = "./vendor/pdfjs/pdf.worker.mjs";
+
+    const sampleResume = `Aisha Khan, she/her
+B.S. in Computer Science from Stanford University, 2024
+Skills: Python, Java, SQL, REST APIs, Git, Docker, Agile development
+Experience: Software Engineering Intern at TechNova; developed REST APIs, optimized SQL queries, and maintained backend services
+Project: Built a task management web application using Python, Flask, SQL, and REST APIs
+Certification: AWS Cloud Practitioner`;
+
+    const sampleJob = `Software Engineer
+We are seeking a remote software developer with experience in PHP or Python, REST APIs, relational databases, SQL, JavaScript, Git, debugging, and collaborative agile development. The candidate should maintain backend services, troubleshoot production issues, and contribute to product improvements.`;
+
+    const stopwords = new Set([
+      "a", "an", "and", "are", "as", "at", "be", "by", "for", "from", "in", "into", "is", "it", "of", "on", "or", "our", "that", "the", "their", "this", "to", "with", "we", "will", "you", "your",
+      "he", "her", "hers", "him", "his", "she", "they", "them", "their", "i", "me", "my", "was", "were", "where", "who", "what", "when", "which", "using", "used", "candidate", "resume", "job"
+    ]);
+
+    function tokenize(text) {
+      return text
+        .toLowerCase()
+        .replace(/[^a-z0-9+#.]+/g, " ")
+        .split(/\s+/)
+        .filter(token => token.length > 2 && !stopwords.has(token));
+    }
+
+    function termFrequency(tokens) {
+      const counts = new Map();
+      tokens.forEach(token => counts.set(token, (counts.get(token) || 0) + 1));
+      return counts;
+    }
+
+    function cosineScore(resume, job) {
+      const resumeTokens = tokenize(resume);
+      const jobTokens = tokenize(job);
+      const resumeCounts = termFrequency(resumeTokens);
+      const jobCounts = termFrequency(jobTokens);
+      let dot = 0;
+      let resumeNorm = 0;
+      let jobNorm = 0;
+
+      resumeCounts.forEach(value => {
+        resumeNorm += value * value;
+      });
+      jobCounts.forEach((value, key) => {
+        jobNorm += value * value;
+        dot += value * (resumeCounts.get(key) || 0);
+      });
+
+      const cosine = dot / (Math.sqrt(resumeNorm || 1) * Math.sqrt(jobNorm || 1));
+      const shared = [...jobCounts.keys()]
+        .filter(token => resumeCounts.has(token))
+        .sort((a, b) => (jobCounts.get(b) + resumeCounts.get(b)) - (jobCounts.get(a) + resumeCounts.get(a)));
+
+      return {
+        score: Math.round(Math.min(100, cosine * 100)),
+        raw: cosine,
+        shared
+      };
+    }
+
+    function maskIdentitySignals(text) {
+      return text
+        .replace(/\b(she\/her|he\/him|they\/them|she|her|hers|he|him|his|they|them|their)\b/gi, " ")
+        .replace(/\b[A-Z][a-z]+ [A-Z][a-z]+\b/g, " ")
+        .replace(/\b(?:from|at)\s+([A-Z][A-Za-z&.\s]{2,50}?(?:University|College|Institute of Technology|Institute|School))\b/g, " ");
+    }
+
+    function detectCues(text) {
+      const cues = [];
+      const firstLine = text.split(/\n/).find(line => line.trim());
+      const name = firstLine && firstLine.match(/\b[A-Z][a-z]+ [A-Z][a-z]+\b/);
+      const pronouns = text.match(/\b(she\/her|he\/him|they\/them)\b/i);
+      const university = text.match(/\b(?:from|at)\s+([A-Z][A-Za-z&.\s]{2,50}?(?:University|College|Institute of Technology|Institute|School))\b/);
+      if (name) cues.push(`Name: ${name[0]}`);
+      if (pronouns) cues.push(`Pronouns: ${pronouns[0]}`);
+      if (university) cues.push(`School: ${university[1]}`);
+      return cues;
+    }
+
+    function setPills(targetId, values, emptyText) {
+      const target = document.getElementById(targetId);
+      target.innerHTML = values.length
+        ? values.slice(0, 10).map(value => `<span class="pill">${value}</span>`).join("")
+        : `<span class="pill">${emptyText}</span>`;
+    }
+
+    function setUploadStatus(message, isError = false) {
+      const status = document.getElementById("uploadStatus");
+      status.textContent = message;
+      status.classList.toggle("error", isError);
+    }
+
+    async function extractPdfText(file) {
+      const data = new Uint8Array(await file.arrayBuffer());
+      const pdf = await pdfjsLib.getDocument({ data }).promise;
+      const pages = [];
+      for (let pageNumber = 1; pageNumber <= pdf.numPages; pageNumber += 1) {
+        const page = await pdf.getPage(pageNumber);
+        const content = await page.getTextContent();
+        pages.push(content.items.map(item => item.str).join(" "));
+      }
+      return pages.join("\n\n").trim();
+    }
+
+    async function extractPdfTextViaServer(file) {
+      const response = await fetch("/api/extract-pdf", {
+        method: "POST",
+        headers: { "Content-Type": "application/pdf" },
+        body: file
+      });
+      const payload = await response.json();
+      if (!response.ok) {
+        throw new Error(payload.error || "Server PDF extraction failed.");
+      }
+      return payload.text;
+    }
+
+    async function loadResumeFile(file) {
+      const name = file.name || "selected file";
+      const isPdf = file.type === "application/pdf" || name.toLowerCase().endsWith(".pdf");
+      setUploadStatus(`Reading ${name}...`);
+
+      try {
+        let text;
+        if (isPdf) {
+          try {
+            text = await extractPdfText(file);
+          } catch (browserError) {
+            if (location.protocol.startsWith("http")) {
+              setUploadStatus(`Browser PDF parsing failed; trying local server extraction for ${name}...`);
+              text = await extractPdfTextViaServer(file);
+            } else {
+              throw browserError;
+            }
+          }
+        } else {
+          text = await file.text();
+        }
+        if (!text.trim()) {
+          setUploadStatus("No selectable text was found. If this is a scanned PDF, paste the resume text instead.", true);
+          return;
+        }
+        document.getElementById("resumeText").value = text;
+        setUploadStatus(`Loaded ${name}. Review the extracted text, then click Analyze Match.`);
+      } catch (error) {
+        setUploadStatus("Could not read this file. Try a text-based PDF, or paste the resume text directly.", true);
+        console.error(error);
+      }
+    }
+
+    function analyzeMatch() {
+      const resume = document.getElementById("resumeText").value.trim();
+      const job = document.getElementById("jobText").value.trim();
+      if (!resume || !job) {
+        document.getElementById("matchScore").textContent = "--";
+        document.getElementById("keywordCount").textContent = "Add resume and job text";
+        document.getElementById("maskedScore").textContent = "--";
+        document.getElementById("scoreDelta").textContent = "--";
+        setPills("cueList", [], "Nothing to analyze yet");
+        setPills("termList", [], "Nothing to analyze yet");
+        return;
+      }
+
+      const original = cosineScore(resume, job);
+      const masked = cosineScore(maskIdentitySignals(resume), job);
+      const delta = masked.score - original.score;
+
+      document.getElementById("matchScore").textContent = `${original.score}%`;
+      document.getElementById("keywordCount").textContent = `${original.shared.length}`;
+      document.getElementById("maskedScore").textContent = `${masked.score}%`;
+      document.getElementById("scoreDelta").textContent = `${delta > 0 ? "+" : ""}${delta} pts`;
+      setPills("cueList", detectCues(resume), "No obvious cues detected");
+      setPills("termList", original.shared.slice(0, 10), "No overlapping terms found");
+    }
+
+    async function analyzeWithLlm() {
+      const resume = document.getElementById("resumeText").value.trim();
+      const job = document.getElementById("jobText").value.trim();
+      if (!resume || !job) {
+        document.getElementById("llmRationale").textContent = "Add resume and job text first.";
+        return;
+      }
+
+      document.getElementById("llmScore").textContent = "Running...";
+      document.getElementById("llmRationale").textContent = "Sending the resume and job description to the local demo server...";
+
+      try {
+        const response = await fetch("/api/llm-score", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ resume, job })
+        });
+        const payload = await response.json();
+        if (!response.ok) {
+          throw new Error(payload.error || "LLM scoring failed.");
+        }
+        document.getElementById("llmScore").textContent = `${Math.round(payload.score)}%`;
+        document.getElementById("llmRationale").textContent = payload.rationale || "No rationale returned.";
+      } catch (error) {
+        document.getElementById("llmScore").textContent = "--";
+        document.getElementById("llmRationale").textContent = "LLM scoring needs the optional local server. Run: python ML_FINAL/demo/server.py";
+      }
+    }
+
+    const overall = [
+      { signal: "name", label: "Name", mean: 0.0085, median: 0.0055, abs: 0.0198 },
+      { signal: "pronoun", label: "Pronoun", mean: 0.0050, median: 0.0055, abs: 0.0064 },
+      { signal: "university", label: "University", mean: -0.0001, median: 0.0023, abs: 0.0116 }
+    ];
+
+    const sameDomain = [
+      { signal: "name", label: "Name", abs: 0.0236 },
+      { signal: "pronoun", label: "Pronoun", abs: 0.0074 },
+      { signal: "university", label: "University", abs: 0.0134 }
+    ];
+
+    function formatScore(value) {
+      return value.toFixed(4);
+    }
+
+    function renderBars(targetId, rows) {
+      const target = document.getElementById(targetId);
+      const max = Math.max(...rows.map(row => row.abs));
+      target.innerHTML = rows.map(row => {
+        const width = Math.max(4, (row.abs / max) * 100);
+        return `
+          <div class="bar-row">
+            <strong>${row.label}</strong>
+            <div class="track"><div class="fill ${row.signal}" style="width: ${width}%"></div></div>
+            <span>${formatScore(row.abs)}</span>
+          </div>
+        `;
+      }).join("");
+    }
+
+    function renderTable() {
+      document.getElementById("overallRows").innerHTML = overall.map(row => `
+        <tr>
+          <td>${row.label}</td>
+          <td>${formatScore(row.mean)}</td>
+          <td>${formatScore(row.median)}</td>
+          <td>${formatScore(row.abs)}</td>
+        </tr>
+      `).join("");
+    }
+
+    function activate(viewName) {
+      document.querySelectorAll(".tab").forEach(tab => {
+        tab.classList.toggle("active", tab.dataset.view === viewName);
+      });
+      document.querySelectorAll(".view").forEach(view => {
+        view.classList.toggle("hidden", view.id !== viewName);
+      });
+    }
+
+    document.querySelectorAll(".tab").forEach(tab => {
+      tab.addEventListener("click", () => activate(tab.dataset.view));
+    });
+
+    document.getElementById("analyzeBtn").addEventListener("click", analyzeMatch);
+    document.getElementById("sampleBtn").addEventListener("click", () => {
+      document.getElementById("resumeText").value = sampleResume;
+      document.getElementById("jobText").value = sampleJob;
+      analyzeMatch();
+    });
+    document.getElementById("clearBtn").addEventListener("click", () => {
+      document.getElementById("resumeText").value = "";
+      document.getElementById("jobText").value = "";
+      document.getElementById("resumeFile").value = "";
+      document.getElementById("llmScore").textContent = "--";
+      document.getElementById("llmRationale").textContent = "Start the optional local server, then click Analyze with LLM.";
+      analyzeMatch();
+    });
+    document.getElementById("resumeFile").addEventListener("change", event => {
+      const file = event.target.files[0];
+      if (!file) return;
+      loadResumeFile(file);
+    });
+    document.getElementById("llmAnalyzeBtn").addEventListener("click", analyzeWithLlm);
+
+    renderBars("overallChart", overall);
+    renderBars("domainChart", sameDomain);
+    renderTable();
+  </script>
+</body>
+</html>

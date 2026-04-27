@@ -1,0 +1,110 @@
+\documentclass[10pt,twocolumn]{article}
+\usepackage{icml2022}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{url}
+
+\title{Bias-Aware Job-Resume Matching: Auditing Demographic Signals in Automated Screening}
+\author{Moksh Jain \and Sai Satwika Reddy Kandula}
+\date{}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Automated resume screening systems can improve hiring efficiency, but they also risk converting historical discrimination into opaque model scores. This project audits whether a resume-job matching pipeline changes its scores when the resume is held constant except for one demographic signal: name, pronouns, or university. We build a controlled synthetic dataset of 10 base resumes, 40 counterfactual variants, and five job descriptions across software engineering, finance, marketing, healthcare, and education. The main implemented model uses Sentence-BERT cosine similarity; an additional current-LLM scorer using OpenAI's Responses API and \texttt{gpt-5-mini} is provided for extension and replication. Sentence-BERT results show that counterfactual edits do affect scores even when qualifications are unchanged. Name changes produce the largest mean absolute score movement (0.0198 overall and 0.0236 on same-domain matches), followed by university changes and pronoun changes. These findings do not prove hiring discrimination in deployed systems, but they demonstrate that representation-based matching can be sensitive to irrelevant identity cues and should be audited before use in high-stakes screening.
+\end{abstract}
+
+\section{Introduction}
+Many job applicants encounter automated screening before a human reads their resume. These systems are often framed as neutral because they operate through text similarity, ranking, or prediction, but hiring data and language representations are not neutral. Field evidence has shown that names associated with different racial groups receive different callback rates even for equivalent resumes \citep{bertrand2004emily}. Work on word and sentence representations has also shown that statistical language models can encode social stereotypes from text corpora \citep{caliskan2017semantics,bolukbasi2016man}. In hiring, this creates a specific risk: a model designed to compare job descriptions and resumes may shift its score because of identity-coded tokens rather than job-relevant qualifications.
+
+The goal of this project is to make that risk measurable in a small, transparent setting. Instead of trying to predict real hiring decisions, we create controlled counterfactual resumes. Each base resume is rewritten into variants where exactly one signal changes: the applicant's name, the pronouns used in the resume, or the university listed in the education section. All skills, work experience, projects, and certifications remain fixed. If the model is evaluating only job-relevant content, the score for a counterfactual variant should stay very close to the original score.
+
+\section{Research Questions}
+We study three main questions. First, does a resume-job matching model assign different scores to resumes that are identical except for one demographic signal? Second, which signal produces the largest score movement: name, pronouns, or university? Third, are these score movements present even when the resume and job are in the same professional domain, where the relevant skills should be most obvious?
+
+The proposal also raised mitigation strategies such as blind screening, data augmentation, and adversarial debiasing. In this final implementation, the completed empirical component focuses on auditing and measurement. This is an appropriate first step because mitigation should be guided by evidence about which signals cause measurable instability. The codebase also includes a current-LLM scoring path so that the same counterfactual audit can be repeated with a prompt-based evaluator rather than only with embedding cosine similarity.
+
+\section{Dataset}
+The dataset contains five job descriptions, one each in software engineering, finance, marketing, healthcare, and education. It also contains 10 synthetic base resumes, two per domain. Each base resume includes a name, pronouns, university, email, education, skills, experience, projects, certifications, and a combined resume text field. For each base resume we create four versions: original, name-changed, pronoun-changed, and university-changed. This yields 40 resume variants and 200 resume-job comparisons.
+
+The counterfactual design is the central experimental control. For example, a software resume may keep the same programming skills, internship, project, and certification while changing only the name from ``Emily Johnson'' to ``Aisha Khan.'' A university-change variant replaces the institution while keeping the degree, graduation year, and qualifications fixed. Because the content is synthetic, the project avoids exposing real applicants. Because the edits are isolated, score changes can be attributed to the changed signal rather than to uncontrolled differences in experience.
+
+\section{Methods}
+\subsection{Sentence-BERT Matcher}
+The primary implemented matcher uses Sentence-BERT \citep{reimers2019sentencebert}. For each resume variant and each job description, the script encodes both texts with \texttt{all-MiniLM-L6-v2} and computes cosine similarity between the two embeddings. This score is treated as the model's estimate of resume-job fit. The repository includes a notebook and a standalone script, \texttt{ML\_FINAL/scripts/run\_sbert.py}, to regenerate the 200 comparisons.
+
+For fairness analysis, we compare each counterfactual score to the corresponding original score for the same resume and job. The main metric is
+\[
+\Delta_{r,j,v} = score(r_{v}, j) - score(r_{original}, j),
+\]
+where \(r\) is a base resume, \(j\) is a job, and \(v\) is the counterfactual version. We report mean delta, median delta, minimum and maximum delta, and mean absolute delta by changed signal. Mean absolute delta is especially useful because both positive and negative score shifts are fairness-relevant: a system that inconsistently rewards or penalizes identity cues is unstable even when signed effects average out.
+
+\subsection{Current LLM Scorer}
+To address the proposal feedback, the project now includes an LLM-based scoring method in \texttt{ML\_FINAL/scripts/run\_llm\_openai.py}. The script uses OpenAI's Responses API with structured JSON output and defaults to \texttt{gpt-5-mini}, which OpenAI documents as a cost-efficient model for well-defined tasks \citep{openai2026models}. The prompt asks the model to score job-resume fit from 0 to 100 while explicitly ignoring name, pronouns, gender, race, ethnicity, and university prestige unless a credential is materially required.
+
+The LLM scorer is intentionally separated from the SBERT scorer. This makes it possible to compare an embedding-similarity model with an instruction-following evaluator under the same counterfactual protocol. The script requires an \texttt{OPENAI\_API\_KEY} environment variable and does not store credentials or generated rationales in source control by default. In the current repository state, the LLM method is implemented and runnable, but the quantitative results reported below are from SBERT because no API key was available in the execution environment.
+
+\section{Results}
+Table \ref{tab:overall} summarizes the SBERT counterfactual audit across all 200 resume-job comparisons. Name changes produce the largest average absolute movement in similarity score, at 0.0198. University changes are next at 0.0116, and pronoun changes are smaller but still nonzero at 0.0064. The signed means are positive for name and pronoun changes, but the maxima and minima show that the effect direction depends on the resume-job pair.
+
+\begin{table}[t]
+\centering
+\caption{SBERT score shifts by counterfactual signal across all job-resume pairs.}
+\label{tab:overall}
+\small
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{lrrrr}
+\toprule
+Signal & Mean \(\Delta\) & Median \(\Delta\) & Max \(|\Delta|\) & Mean \(|\Delta|\) \\
+\midrule
+Name & 0.0085 & 0.0055 & 0.0812 & 0.0198 \\
+Pronoun & 0.0050 & 0.0055 & 0.0169 & 0.0064 \\
+University & -0.0001 & 0.0023 & 0.0786 & 0.0116 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The same pattern remains when restricting to same-domain matches, shown in Table \ref{tab:domain}. This subset matters because the resume should have its strongest legitimate match to the job in its own domain. Even there, changing the name moves the score by 0.0236 on average in absolute terms. University changes move same-domain scores by 0.0134, and pronoun changes by 0.0074. The largest individual shifts are substantial relative to the observed score range: one education resume's name change increased its software job similarity by 0.0812, while one healthcare resume's university change reduced its software job similarity by 0.0786.
+
+\begin{table}[t]
+\centering
+\caption{SBERT score shifts on same-domain resume-job pairs.}
+\label{tab:domain}
+\begin{tabular}{lrrr}
+\toprule
+Signal & Mean \(\Delta\) & Median \(\Delta\) & Mean \(|\Delta|\) \\
+\midrule
+Name & 0.0061 & 0.0008 & 0.0236 \\
+Pronoun & 0.0059 & 0.0056 & 0.0074 \\
+University & 0.0001 & 0.0029 & 0.0134 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+These results should be interpreted as a sensitivity audit, not a claim that one demographic group is always advantaged or disadvantaged by this particular model. The dataset is synthetic and small, and the counterfactual names and universities were chosen manually. Still, the important result is that irrelevant changes can alter similarity scores at all. In a ranking system, small score differences can matter when applicants cluster near decision thresholds.
+
+\section{Related Work}
+This project connects three lines of prior work. First, labor economics has documented that equivalent resumes can receive different outcomes when identity-coded names change \citep{bertrand2004emily}. Second, NLP fairness research has shown that learned representations encode social associations present in training corpora \citep{caliskan2017semantics,bolukbasi2016man}. Third, algorithmic hiring research warns that vendors often make broad fairness claims without enough external validation \citep{raghavan2020mitigating}. Our contribution is a small implementation that turns these concerns into a reproducible counterfactual audit for resume-job matching.
+
+Sentence-BERT is useful here because it is a common and accessible way to build semantic search and matching systems \citep{reimers2019sentencebert}. However, the same audit logic applies to current LLMs. Prompt-based LLM evaluators may be better at following an instruction to ignore demographic signals, but they can also be sensitive to framing, hidden stereotypes, and inconsistent calibration \citep{bender2021dangers}. This is why the repository includes both SBERT and LLM scoring paths.
+
+\section{Ethical Considerations}
+The ethical stakes are high because hiring affects income, mobility, and professional opportunity. A resume matcher that uses demographic proxies can reproduce discrimination while appearing objective. Even if no protected attribute is explicitly collected, names, pronouns, universities, activities, and writing style can act as proxies. The project therefore treats fairness as a system property to be measured, not as a claim that follows automatically from removing explicit labels.
+
+There are also ethical risks in the project design. Synthetic resumes reduce privacy risk, but they can oversimplify demographic identity and reinforce stereotypes if names or universities are treated as fixed group markers. The results should not be used to claim that a particular name or institution always implies a particular protected class. The right use of this work is diagnostic: it shows how to test whether irrelevant signals change model behavior.
+
+Finally, LLM-based scoring should be used carefully. Asking an LLM to ignore demographic signals is not a guarantee that it actually does so. Prompt instructions can reduce obvious reliance on protected cues, but external audits, threshold analysis, documentation, and human oversight are still needed before any screening model is used in practice.
+
+\section{Limitations and Future Work}
+The main limitation is scale. The dataset has only 10 base resumes, five jobs, and manually selected counterfactual edits. Future work should expand the number of occupations, resume styles, seniority levels, and counterfactual identities. A second limitation is that SBERT cosine similarity is only one possible matching method. Real applicant tracking systems may use keyword filters, supervised rankers, proprietary LLMs, or hybrid pipelines.
+
+The immediate next step is to run the included LLM scorer with an API key and compare the same counterfactual metrics across SBERT and \texttt{gpt-5-mini}. A stronger follow-up would add blind-screened resume text, where names and pronouns are removed before scoring, then compare whether blinding reduces mean absolute deltas without damaging same-domain matching quality. Longer-term work could evaluate threshold decisions and applicant rankings rather than raw similarity scores, since fairness harms often appear at the selection boundary.
+
+\section{Conclusion}
+This project implements a controlled audit of demographic-signal sensitivity in resume-job matching. The SBERT matcher changes its scores when names, pronouns, or universities are edited while qualifications remain fixed. Name changes produce the largest average movement, followed by university and pronoun changes. The repository now also includes a current LLM scoring method so the same audit can be applied to prompt-based evaluators. The broader lesson is that hiring models should be tested with counterfactual examples before they are trusted, especially when their scores may influence access to opportunity.
+
+\bibliographystyle{plainnat}
+\bibliography{references}
+
+\end{document}
