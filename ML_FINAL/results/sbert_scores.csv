@@ -1,0 +1,201 @@
+resume_id,resume_domain,version,changed_signal,name,pronouns,university,job_id,job_domain,job_title,company_name,sbert_score
+R1,Software Engineering,original,none,Emily Johnson,she/her,Stanford University,J1,Software Engineering,Software Engineer,GOYT,0.51089454
+R1,Software Engineering,original,none,Emily Johnson,she/her,Stanford University,J2,Finance,Financial Analyst,Aya Healthcare,0.22647092
+R1,Software Engineering,original,none,Emily Johnson,she/her,Stanford University,J3,Marketing,Marketing Coordinator,Corcoran Sawyer Smith,0.3428688
+R1,Software Engineering,original,none,Emily Johnson,she/her,Stanford University,J4,Healthcare,Clinical Data Analyst,Insight Global,0.32992426
+R1,Software Engineering,original,none,Emily Johnson,she/her,Stanford University,J5,Education,Academic Advisor,Kennesaw State University,0.313125
+R1,Software Engineering,name_changed,name,Aisha Khan,she/her,Stanford University,J1,Software Engineering,Software Engineer,GOYT,0.48283502
+R1,Software Engineering,name_changed,name,Aisha Khan,she/her,Stanford University,J2,Finance,Financial Analyst,Aya Healthcare,0.24913281
+R1,Software Engineering,name_changed,name,Aisha Khan,she/her,Stanford University,J3,Marketing,Marketing Coordinator,Corcoran Sawyer Smith,0.35675144
+R1,Software Engineering,name_changed,name,Aisha Khan,she/her,Stanford University,J4,Healthcare,Clinical Data Analyst,Insight Global,0.35997933
+R1,Software Engineering,name_changed,name,Aisha Khan,she/her,Stanford University,J5,Education,Academic Advisor,Kennesaw State University,0.315124
+R1,Software Engineering,pronoun_changed,pronoun,Emily Johnson,he/him,Stanford University,J1,Software Engineering,Software Engineer,GOYT,0.51551116
+R1,Software Engineering,pronoun_changed,pronoun,Emily Johnson,he/him,Stanford University,J2,Finance,Financial Analyst,Aya Healthcare,0.2305111
+R1,Software Engineering,pronoun_changed,pronoun,Emily Johnson,he/him,Stanford University,J3,Marketing,Marketing Coordinator,Corcoran Sawyer Smith,0.34132662
+R1,Software Engineering,pronoun_changed,pronoun,Emily Johnson,he/him,Stanford University,J4,Healthcare,Clinical Data Analyst,Insight Global,0.34453642
+R1,Software Engineering,pronoun_changed,pronoun,Emily Johnson,he/him,Stanford University,J5,Education,Academic Advisor,Kennesaw State University,0.3185772
+R1,Software Engineering,university_changed,university,Emily Johnson,she/her,Morgan State University,J1,Software Engineering,Software Engineer,GOYT,0.5140418
+R1,Software Engineering,university_changed,university,Emily Johnson,she/her,Morgan State University,J2,Finance,Financial Analyst,Aya Healthcare,0.24350604
+R1,Software Engineering,university_changed,university,Emily Johnson,she/her,Morgan State University,J3,Marketing,Marketing Coordinator,Corcoran Sawyer Smith,0.3520739
+R1,Software Engineering,university_changed,university,Emily Johnson,she/her,Morgan State University,J4,Healthcare,Clinical Data Analyst,Insight Global,0.3414411
+R1,Software Engineering,university_changed,university,Emily Johnson,she/her,Morgan State University,J5,Education,Academic Advisor,Kennesaw State University,0.32613686
+R2,Software Engineering,original,none,Michael Smith,he/him,Massachusetts Institute of Technology,J1,Software Engineering,Software Engineer,GOYT,0.48348206
+R2,Software Engineering,original,none,Michael Smith,he/him,Massachusetts Institute of Technology,J2,Finance,Financial Analyst,Aya Healthcare,0.21324337
+R2,Software Engineering,original,none,Michael Smith,he/him,Massachusetts Institute of Technology,J3,Marketing,Marketing Coordinator,Corcoran Sawyer Smith,0.38237423
+R2,Software Engineering,original,none,Michael Smith,he/him,Massachusetts Institute of Technology,J4,Healthcare,Clinical Data Analyst,Insight Global,0.30521962
+R2,Software Engineering,original,none,Michael Smith,he/him,Massachusetts Institute of Technology,J5,Education,Academic Advisor,Kennesaw State University,0.33338442
+R2,Software Engineering,name_changed,name,Jamal Robinson,he/him,Massachusetts Institute of Technology,J1,Software Engineering,Software Engineer,GOYT,0.47993243
+R2,Software Engineering,name_changed,name,Jamal Robinson,he/him,Massachusetts Institute of Technology,J2,Finance,Financial Analyst,Aya Healthcare,0.20054929
+R2,Software Engineering,name_changed,name,Jamal Robinson,he/him,Massachusetts Institute of Technology,J3,Marketing,Marketing Coordinator,Corcoran Sawyer Smith,0.3514716
+R2,Software Engineering,name_changed,name,Jamal Robinson,he/him,Massachusetts Institute of Technology,J4,Healthcare,Clinical Data Analyst,Insight Global,0.3369943
+R2,Software Engineering,name_changed,name,Jamal Robinson,he/him,Massachusetts Institute of Technology,J5,Education,Academic Advisor,Kennesaw State University,0.33167303
+R2,Software Engineering,pronoun_changed,pronoun,Michael Smith,she/her,Massachusetts Institute of Technology,J1,Software Engineering,Software Engineer,GOYT,0.49686712
+R2,Software Engineering,pronoun_changed,pronoun,Michael Smith,she/her,Massachusetts Institute of Technology,J2,Finance,Financial Analyst,Aya Healthcare,0.2187334
+R2,Software Engineering,pronoun_changed,pronoun,Michael Smith,she/her,Massachusetts Institute of Technology,J3,Marketing,Marketing Coordinator,Corcoran Sawyer Smith,0.39366394
+R2,Software Engineering,pronoun_changed,pronoun,Michael Smith,she/her,Massachusetts Institute of Technology,J4,Healthcare,Clinical Data Analyst,Insight Global,0.31571725
+R2,Software Engineering,pronoun_changed,pronoun,Michael Smith,she/her,Massachusetts Institute of Technology,J5,Education,Academic Advisor,Kennesaw State University,0.34170544
+R2,Software Engineering,university_changed,university,Michael Smith,he/him,Howard University,J1,Software Engineering,Software Engineer,GOYT,0.4860912
+R2,Software Engineering,university_changed,university,Michael Smith,he/him,Howard University,J2,Finance,Financial Analyst,Aya Healthcare,0.21025732
+R2,Software Engineering,university_changed,university,Michael Smith,he/him,Howard University,J3,Marketing,Marketing Coordinator,Corcoran Sawyer Smith,0.37674555
+R2,Software Engineering,university_changed,university,Michael Smith,he/him,Howard University,J4,Healthcare,Clinical Data Analyst,Insight Global,0.29792872
+R2,Software Engineering,university_changed,university,Michael Smith,he/him,Howard University,J5,Education,Academic Advisor,Kennesaw State University,0.33931205
+R3,Finance,original,none,Sophia Brown,she/her,University of Pennsylvania,J1,Software Engineering,Software Engineer,GOYT,0.31348598
+R3,Finance,original,none,Sophia Brown,she/her,University of Pennsylvania,J2,Finance,Financial Analyst,Aya Healthcare,0.323376
+R3,Finance,original,none,Sophia Brown,she/her,University of Pennsylvania,J3,Marketing,Marketing Coordinator,Corcoran Sawyer Smith,0.32137927
+R3,Finance,original,none,Sophia Brown,she/her,University of Pennsylvania,J4,Healthcare,Clinical Data Analyst,Insight Global,0.32616657
+R3,Finance,original,none,Sophia Brown,she/her,University of Pennsylvania,J5,Education,Academic Advisor,Kennesaw State University,0.28296024
+R3,Finance,name_changed,name,Priya Patel,she/her,University of Pennsylvania,J1,Software Engineering,Software Engineer,GOYT,0.32232377
+R3,Finance,name_changed,name,Priya Patel,she/her,University of Pennsylvania,J2,Finance,Financial Analyst,Aya Healthcare,0.33015615
+R3,Finance,name_changed,name,Priya Patel,she/her,University of Pennsylvania,J3,Marketing,Marketing Coordinator,Corcoran Sawyer Smith,0.29919386
+R3,Finance,name_changed,name,Priya Patel,she/her,University of Pennsylvania,J4,Healthcare,Clinical Data Analyst,Insight Global,0.36051285
+R3,Finance,name_changed,name,Priya Patel,she/her,University of Pennsylvania,J5,Education,Academic Advisor,Kennesaw State University,0.2802449
+R3,Finance,pronoun_changed,pronoun,Sophia Brown,he/him,University of Pennsylvania,J1,Software Engineering,Software Engineer,GOYT,0.31563717
+R3,Finance,pronoun_changed,pronoun,Sophia Brown,he/him,University of Pennsylvania,J2,Finance,Financial Analyst,Aya Healthcare,0.3299019
+R3,Finance,pronoun_changed,pronoun,Sophia Brown,he/him,University of Pennsylvania,J3,Marketing,Marketing Coordinator,Corcoran Sawyer Smith,0.32476008
+R3,Finance,pronoun_changed,pronoun,Sophia Brown,he/him,University of Pennsylvania,J4,Healthcare,Clinical Data Analyst,Insight Global,0.33931434
+R3,Finance,pronoun_changed,pronoun,Sophia Brown,he/him,University of Pennsylvania,J5,Education,Academic Advisor,Kennesaw State University,0.29090142
+R3,Finance,university_changed,university,Sophia Brown,she/her,Florida International University,J1,Software Engineering,Software Engineer,GOYT,0.32536387
+R3,Finance,university_changed,university,Sophia Brown,she/her,Florida International University,J2,Finance,Financial Analyst,Aya Healthcare,0.34420162
+R3,Finance,university_changed,university,Sophia Brown,she/her,Florida International University,J3,Marketing,Marketing Coordinator,Corcoran Sawyer Smith,0.3283833
+R3,Finance,university_changed,university,Sophia Brown,she/her,Florida International University,J4,Healthcare,Clinical Data Analyst,Insight Global,0.3171566
+R3,Finance,university_changed,university,Sophia Brown,she/her,Florida International University,J5,Education,Academic Advisor,Kennesaw State University,0.28949186
+R4,Finance,original,none,David Miller,he/him,New York University,J1,Software Engineering,Software Engineer,GOYT,0.26908204
+R4,Finance,original,none,David Miller,he/him,New York University,J2,Finance,Financial Analyst,Aya Healthcare,0.3999493
+R4,Finance,original,none,David Miller,he/him,New York University,J3,Marketing,Marketing Coordinator,Corcoran Sawyer Smith,0.31084365
+R4,Finance,original,none,David Miller,he/him,New York University,J4,Healthcare,Clinical Data Analyst,Insight Global,0.4494096
+R4,Finance,original,none,David Miller,he/him,New York University,J5,Education,Academic Advisor,Kennesaw State University,0.24163903
+R4,Finance,name_changed,name,Ahmed Hassan,he/him,New York University,J1,Software Engineering,Software Engineer,GOYT,0.27091587
+R4,Finance,name_changed,name,Ahmed Hassan,he/him,New York University,J2,Finance,Financial Analyst,Aya Healthcare,0.40244102
+R4,Finance,name_changed,name,Ahmed Hassan,he/him,New York University,J3,Marketing,Marketing Coordinator,Corcoran Sawyer Smith,0.32489303
+R4,Finance,name_changed,name,Ahmed Hassan,he/him,New York University,J4,Healthcare,Clinical Data Analyst,Insight Global,0.46245182
+R4,Finance,name_changed,name,Ahmed Hassan,he/him,New York University,J5,Education,Academic Advisor,Kennesaw State University,0.29209775
+R4,Finance,pronoun_changed,pronoun,David Miller,she/her,New York University,J1,Software Engineering,Software Engineer,GOYT,0.2679716
+R4,Finance,pronoun_changed,pronoun,David Miller,she/her,New York University,J2,Finance,Financial Analyst,Aya Healthcare,0.4007272
+R4,Finance,pronoun_changed,pronoun,David Miller,she/her,New York University,J3,Marketing,Marketing Coordinator,Corcoran Sawyer Smith,0.31651753
+R4,Finance,pronoun_changed,pronoun,David Miller,she/her,New York University,J4,Healthcare,Clinical Data Analyst,Insight Global,0.46174067
+R4,Finance,pronoun_changed,pronoun,David Miller,she/her,New York University,J5,Education,Academic Advisor,Kennesaw State University,0.23246679
+R4,Finance,university_changed,university,David Miller,he/him,University of Texas at Arlington,J1,Software Engineering,Software Engineer,GOYT,0.26136658
+R4,Finance,university_changed,university,David Miller,he/him,University of Texas at Arlington,J2,Finance,Financial Analyst,Aya Healthcare,0.41247478
+R4,Finance,university_changed,university,David Miller,he/him,University of Texas at Arlington,J3,Marketing,Marketing Coordinator,Corcoran Sawyer Smith,0.3144018
+R4,Finance,university_changed,university,David Miller,he/him,University of Texas at Arlington,J4,Healthcare,Clinical Data Analyst,Insight Global,0.4543491
+R4,Finance,university_changed,university,David Miller,he/him,University of Texas at Arlington,J5,Education,Academic Advisor,Kennesaw State University,0.2798931
+R5,Marketing,original,none,Olivia Davis,she/her,University of Southern California,J1,Software Engineering,Software Engineer,GOYT,0.25132102
+R5,Marketing,original,none,Olivia Davis,she/her,University of Southern California,J2,Finance,Financial Analyst,Aya Healthcare,0.19859812
+R5,Marketing,original,none,Olivia Davis,she/her,University of Southern California,J3,Marketing,Marketing Coordinator,Corcoran Sawyer Smith,0.4133305
+R5,Marketing,original,none,Olivia Davis,she/her,University of Southern California,J4,Healthcare,Clinical Data Analyst,Insight Global,0.22940245
+R5,Marketing,original,none,Olivia Davis,she/her,University of Southern California,J5,Education,Academic Advisor,Kennesaw State University,0.30048084
+R5,Marketing,name_changed,name,Mei Chen,she/her,University of Southern California,J1,Software Engineering,Software Engineer,GOYT,0.30086
+R5,Marketing,name_changed,name,Mei Chen,she/her,University of Southern California,J2,Finance,Financial Analyst,Aya Healthcare,0.19711247
+R5,Marketing,name_changed,name,Mei Chen,she/her,University of Southern California,J3,Marketing,Marketing Coordinator,Corcoran Sawyer Smith,0.41248706
+R5,Marketing,name_changed,name,Mei Chen,she/her,University of Southern California,J4,Healthcare,Clinical Data Analyst,Insight Global,0.25139317
+R5,Marketing,name_changed,name,Mei Chen,she/her,University of Southern California,J5,Education,Academic Advisor,Kennesaw State University,0.31562483
+R5,Marketing,pronoun_changed,pronoun,Olivia Davis,he/him,University of Southern California,J1,Software Engineering,Software Engineer,GOYT,0.25265342
+R5,Marketing,pronoun_changed,pronoun,Olivia Davis,he/him,University of Southern California,J2,Finance,Financial Analyst,Aya Healthcare,0.20422313
+R5,Marketing,pronoun_changed,pronoun,Olivia Davis,he/him,University of Southern California,J3,Marketing,Marketing Coordinator,Corcoran Sawyer Smith,0.41702545
+R5,Marketing,pronoun_changed,pronoun,Olivia Davis,he/him,University of Southern California,J4,Healthcare,Clinical Data Analyst,Insight Global,0.23119257
+R5,Marketing,pronoun_changed,pronoun,Olivia Davis,he/him,University of Southern California,J5,Education,Academic Advisor,Kennesaw State University,0.30951214
+R5,Marketing,university_changed,university,Olivia Davis,she/her,"California State University, Long Beach",J1,Software Engineering,Software Engineer,GOYT,0.25057125
+R5,Marketing,university_changed,university,Olivia Davis,she/her,"California State University, Long Beach",J2,Finance,Financial Analyst,Aya Healthcare,0.19643873
+R5,Marketing,university_changed,university,Olivia Davis,she/her,"California State University, Long Beach",J3,Marketing,Marketing Coordinator,Corcoran Sawyer Smith,0.40512604
+R5,Marketing,university_changed,university,Olivia Davis,she/her,"California State University, Long Beach",J4,Healthcare,Clinical Data Analyst,Insight Global,0.22913168
+R5,Marketing,university_changed,university,Olivia Davis,she/her,"California State University, Long Beach",J5,Education,Academic Advisor,Kennesaw State University,0.3009979
+R6,Marketing,original,none,James Wilson,he/him,University of Michigan,J1,Software Engineering,Software Engineer,GOYT,0.26031497
+R6,Marketing,original,none,James Wilson,he/him,University of Michigan,J2,Finance,Financial Analyst,Aya Healthcare,0.2038645
+R6,Marketing,original,none,James Wilson,he/him,University of Michigan,J3,Marketing,Marketing Coordinator,Corcoran Sawyer Smith,0.43879652
+R6,Marketing,original,none,James Wilson,he/him,University of Michigan,J4,Healthcare,Clinical Data Analyst,Insight Global,0.3197237
+R6,Marketing,original,none,James Wilson,he/him,University of Michigan,J5,Education,Academic Advisor,Kennesaw State University,0.29141438
+R6,Marketing,name_changed,name,Carlos Ramirez,he/him,University of Michigan,J1,Software Engineering,Software Engineer,GOYT,0.25126845
+R6,Marketing,name_changed,name,Carlos Ramirez,he/him,University of Michigan,J2,Finance,Financial Analyst,Aya Healthcare,0.19985145
+R6,Marketing,name_changed,name,Carlos Ramirez,he/him,University of Michigan,J3,Marketing,Marketing Coordinator,Corcoran Sawyer Smith,0.44312778
+R6,Marketing,name_changed,name,Carlos Ramirez,he/him,University of Michigan,J4,Healthcare,Clinical Data Analyst,Insight Global,0.33507445
+R6,Marketing,name_changed,name,Carlos Ramirez,he/him,University of Michigan,J5,Education,Academic Advisor,Kennesaw State University,0.28335857
+R6,Marketing,pronoun_changed,pronoun,James Wilson,she/her,University of Michigan,J1,Software Engineering,Software Engineer,GOYT,0.26708162
+R6,Marketing,pronoun_changed,pronoun,James Wilson,she/her,University of Michigan,J2,Finance,Financial Analyst,Aya Healthcare,0.20446494
+R6,Marketing,pronoun_changed,pronoun,James Wilson,she/her,University of Michigan,J3,Marketing,Marketing Coordinator,Corcoran Sawyer Smith,0.4487587
+R6,Marketing,pronoun_changed,pronoun,James Wilson,she/her,University of Michigan,J4,Healthcare,Clinical Data Analyst,Insight Global,0.33290088
+R6,Marketing,pronoun_changed,pronoun,James Wilson,she/her,University of Michigan,J5,Education,Academic Advisor,Kennesaw State University,0.28821152
+R6,Marketing,university_changed,university,James Wilson,he/him,Wayne State University,J1,Software Engineering,Software Engineer,GOYT,0.2622342
+R6,Marketing,university_changed,university,James Wilson,he/him,Wayne State University,J2,Finance,Financial Analyst,Aya Healthcare,0.21211344
+R6,Marketing,university_changed,university,James Wilson,he/him,Wayne State University,J3,Marketing,Marketing Coordinator,Corcoran Sawyer Smith,0.43095377
+R6,Marketing,university_changed,university,James Wilson,he/him,Wayne State University,J4,Healthcare,Clinical Data Analyst,Insight Global,0.3309849
+R6,Marketing,university_changed,university,James Wilson,he/him,Wayne State University,J5,Education,Academic Advisor,Kennesaw State University,0.28113347
+R7,Healthcare,original,none,Ava Martinez,she/her,Johns Hopkins University,J1,Software Engineering,Software Engineer,GOYT,0.23606624
+R7,Healthcare,original,none,Ava Martinez,she/her,Johns Hopkins University,J2,Finance,Financial Analyst,Aya Healthcare,0.34762052
+R7,Healthcare,original,none,Ava Martinez,she/her,Johns Hopkins University,J3,Marketing,Marketing Coordinator,Corcoran Sawyer Smith,0.21496193
+R7,Healthcare,original,none,Ava Martinez,she/her,Johns Hopkins University,J4,Healthcare,Clinical Data Analyst,Insight Global,0.58736926
+R7,Healthcare,original,none,Ava Martinez,she/her,Johns Hopkins University,J5,Education,Academic Advisor,Kennesaw State University,0.28023812
+R7,Healthcare,name_changed,name,Fatima Ali,she/her,Johns Hopkins University,J1,Software Engineering,Software Engineer,GOYT,0.2616933
+R7,Healthcare,name_changed,name,Fatima Ali,she/her,Johns Hopkins University,J2,Finance,Financial Analyst,Aya Healthcare,0.35487235
+R7,Healthcare,name_changed,name,Fatima Ali,she/her,Johns Hopkins University,J3,Marketing,Marketing Coordinator,Corcoran Sawyer Smith,0.19834562
+R7,Healthcare,name_changed,name,Fatima Ali,she/her,Johns Hopkins University,J4,Healthcare,Clinical Data Analyst,Insight Global,0.57299817
+R7,Healthcare,name_changed,name,Fatima Ali,she/her,Johns Hopkins University,J5,Education,Academic Advisor,Kennesaw State University,0.23713674
+R7,Healthcare,pronoun_changed,pronoun,Ava Martinez,he/him,Johns Hopkins University,J1,Software Engineering,Software Engineer,GOYT,0.24348177
+R7,Healthcare,pronoun_changed,pronoun,Ava Martinez,he/him,Johns Hopkins University,J2,Finance,Financial Analyst,Aya Healthcare,0.3484273
+R7,Healthcare,pronoun_changed,pronoun,Ava Martinez,he/him,Johns Hopkins University,J3,Marketing,Marketing Coordinator,Corcoran Sawyer Smith,0.21565026
+R7,Healthcare,pronoun_changed,pronoun,Ava Martinez,he/him,Johns Hopkins University,J4,Healthcare,Clinical Data Analyst,Insight Global,0.5857835
+R7,Healthcare,pronoun_changed,pronoun,Ava Martinez,he/him,Johns Hopkins University,J5,Education,Academic Advisor,Kennesaw State University,0.29120407
+R7,Healthcare,university_changed,university,Ava Martinez,she/her,"University of Maryland, Baltimore County",J1,Software Engineering,Software Engineer,GOYT,0.1575019
+R7,Healthcare,university_changed,university,Ava Martinez,she/her,"University of Maryland, Baltimore County",J2,Finance,Financial Analyst,Aya Healthcare,0.3531944
+R7,Healthcare,university_changed,university,Ava Martinez,she/her,"University of Maryland, Baltimore County",J3,Marketing,Marketing Coordinator,Corcoran Sawyer Smith,0.199934
+R7,Healthcare,university_changed,university,Ava Martinez,she/her,"University of Maryland, Baltimore County",J4,Healthcare,Clinical Data Analyst,Insight Global,0.5463939
+R7,Healthcare,university_changed,university,Ava Martinez,she/her,"University of Maryland, Baltimore County",J5,Education,Academic Advisor,Kennesaw State University,0.24784592
+R8,Healthcare,original,none,Ethan Anderson,he/him,University of North Carolina,J1,Software Engineering,Software Engineer,GOYT,0.21935517
+R8,Healthcare,original,none,Ethan Anderson,he/him,University of North Carolina,J2,Finance,Financial Analyst,Aya Healthcare,0.33049342
+R8,Healthcare,original,none,Ethan Anderson,he/him,University of North Carolina,J3,Marketing,Marketing Coordinator,Corcoran Sawyer Smith,0.3107724
+R8,Healthcare,original,none,Ethan Anderson,he/him,University of North Carolina,J4,Healthcare,Clinical Data Analyst,Insight Global,0.51069045
+R8,Healthcare,original,none,Ethan Anderson,he/him,University of North Carolina,J5,Education,Academic Advisor,Kennesaw State University,0.32287624
+R8,Healthcare,name_changed,name,DeShawn Carter,he/him,University of North Carolina,J1,Software Engineering,Software Engineer,GOYT,0.21267566
+R8,Healthcare,name_changed,name,DeShawn Carter,he/him,University of North Carolina,J2,Finance,Financial Analyst,Aya Healthcare,0.34368983
+R8,Healthcare,name_changed,name,DeShawn Carter,he/him,University of North Carolina,J3,Marketing,Marketing Coordinator,Corcoran Sawyer Smith,0.30861667
+R8,Healthcare,name_changed,name,DeShawn Carter,he/him,University of North Carolina,J4,Healthcare,Clinical Data Analyst,Insight Global,0.57832444
+R8,Healthcare,name_changed,name,DeShawn Carter,he/him,University of North Carolina,J5,Education,Academic Advisor,Kennesaw State University,0.3374426
+R8,Healthcare,pronoun_changed,pronoun,Ethan Anderson,she/her,University of North Carolina,J1,Software Engineering,Software Engineer,GOYT,0.2178831
+R8,Healthcare,pronoun_changed,pronoun,Ethan Anderson,she/her,University of North Carolina,J2,Finance,Financial Analyst,Aya Healthcare,0.32904336
+R8,Healthcare,pronoun_changed,pronoun,Ethan Anderson,she/her,University of North Carolina,J3,Marketing,Marketing Coordinator,Corcoran Sawyer Smith,0.31126994
+R8,Healthcare,pronoun_changed,pronoun,Ethan Anderson,she/her,University of North Carolina,J4,Healthcare,Clinical Data Analyst,Insight Global,0.5212144
+R8,Healthcare,pronoun_changed,pronoun,Ethan Anderson,she/her,University of North Carolina,J5,Education,Academic Advisor,Kennesaw State University,0.31406617
+R8,Healthcare,university_changed,university,Ethan Anderson,he/him,North Carolina A&T State University,J1,Software Engineering,Software Engineer,GOYT,0.20535165
+R8,Healthcare,university_changed,university,Ethan Anderson,he/him,North Carolina A&T State University,J2,Finance,Financial Analyst,Aya Healthcare,0.3268664
+R8,Healthcare,university_changed,university,Ethan Anderson,he/him,North Carolina A&T State University,J3,Marketing,Marketing Coordinator,Corcoran Sawyer Smith,0.29967102
+R8,Healthcare,university_changed,university,Ethan Anderson,he/him,North Carolina A&T State University,J4,Healthcare,Clinical Data Analyst,Insight Global,0.5007885
+R8,Healthcare,university_changed,university,Ethan Anderson,he/him,North Carolina A&T State University,J5,Education,Academic Advisor,Kennesaw State University,0.32213062
+R9,Education,original,none,Emma Taylor,she/her,Columbia University,J1,Software Engineering,Software Engineer,GOYT,0.15785693
+R9,Education,original,none,Emma Taylor,she/her,Columbia University,J2,Finance,Financial Analyst,Aya Healthcare,0.14144257
+R9,Education,original,none,Emma Taylor,she/her,Columbia University,J3,Marketing,Marketing Coordinator,Corcoran Sawyer Smith,0.30617392
+R9,Education,original,none,Emma Taylor,she/her,Columbia University,J4,Healthcare,Clinical Data Analyst,Insight Global,0.2265346
+R9,Education,original,none,Emma Taylor,she/her,Columbia University,J5,Education,Academic Advisor,Kennesaw State University,0.31726074
+R9,Education,name_changed,name,Lakisha Washington,she/her,Columbia University,J1,Software Engineering,Software Engineer,GOYT,0.16444695
+R9,Education,name_changed,name,Lakisha Washington,she/her,Columbia University,J2,Finance,Financial Analyst,Aya Healthcare,0.13805196
+R9,Education,name_changed,name,Lakisha Washington,she/her,Columbia University,J3,Marketing,Marketing Coordinator,Corcoran Sawyer Smith,0.35296953
+R9,Education,name_changed,name,Lakisha Washington,she/her,Columbia University,J4,Healthcare,Clinical Data Analyst,Insight Global,0.22372511
+R9,Education,name_changed,name,Lakisha Washington,she/her,Columbia University,J5,Education,Academic Advisor,Kennesaw State University,0.38483012
+R9,Education,pronoun_changed,pronoun,Emma Taylor,he/him,Columbia University,J1,Software Engineering,Software Engineer,GOYT,0.16353251
+R9,Education,pronoun_changed,pronoun,Emma Taylor,he/him,Columbia University,J2,Finance,Financial Analyst,Aya Healthcare,0.15157926
+R9,Education,pronoun_changed,pronoun,Emma Taylor,he/him,Columbia University,J3,Marketing,Marketing Coordinator,Corcoran Sawyer Smith,0.31743473
+R9,Education,pronoun_changed,pronoun,Emma Taylor,he/him,Columbia University,J4,Healthcare,Clinical Data Analyst,Insight Global,0.23562197
+R9,Education,pronoun_changed,pronoun,Emma Taylor,he/him,Columbia University,J5,Education,Academic Advisor,Kennesaw State University,0.3341598
+R9,Education,university_changed,university,Emma Taylor,she/her,Towson University,J1,Software Engineering,Software Engineer,GOYT,0.17422782
+R9,Education,university_changed,university,Emma Taylor,she/her,Towson University,J2,Finance,Financial Analyst,Aya Healthcare,0.15268709
+R9,Education,university_changed,university,Emma Taylor,she/her,Towson University,J3,Marketing,Marketing Coordinator,Corcoran Sawyer Smith,0.3012818
+R9,Education,university_changed,university,Emma Taylor,she/her,Towson University,J4,Healthcare,Clinical Data Analyst,Insight Global,0.2202965
+R9,Education,university_changed,university,Emma Taylor,she/her,Towson University,J5,Education,Academic Advisor,Kennesaw State University,0.3312959
+R10,Education,original,none,Noah Thomas,he/him,University of Wisconsin,J1,Software Engineering,Software Engineer,GOYT,0.20974717
+R10,Education,original,none,Noah Thomas,he/him,University of Wisconsin,J2,Finance,Financial Analyst,Aya Healthcare,0.1918756
+R10,Education,original,none,Noah Thomas,he/him,University of Wisconsin,J3,Marketing,Marketing Coordinator,Corcoran Sawyer Smith,0.32353017
+R10,Education,original,none,Noah Thomas,he/him,University of Wisconsin,J4,Healthcare,Clinical Data Analyst,Insight Global,0.25606668
+R10,Education,original,none,Noah Thomas,he/him,University of Wisconsin,J5,Education,Academic Advisor,Kennesaw State University,0.45278627
+R10,Education,name_changed,name,Wei Zhang,he/him,University of Wisconsin,J1,Software Engineering,Software Engineer,GOYT,0.2909767
+R10,Education,name_changed,name,Wei Zhang,he/him,University of Wisconsin,J2,Finance,Financial Analyst,Aya Healthcare,0.20663019
+R10,Education,name_changed,name,Wei Zhang,he/him,University of Wisconsin,J3,Marketing,Marketing Coordinator,Corcoran Sawyer Smith,0.2963785
+R10,Education,name_changed,name,Wei Zhang,he/him,University of Wisconsin,J4,Healthcare,Clinical Data Analyst,Insight Global,0.27850163
+R10,Education,name_changed,name,Wei Zhang,he/him,University of Wisconsin,J5,Education,Academic Advisor,Kennesaw State University,0.41229382
+R10,Education,pronoun_changed,pronoun,Noah Thomas,she/her,University of Wisconsin,J1,Software Engineering,Software Engineer,GOYT,0.2135284
+R10,Education,pronoun_changed,pronoun,Noah Thomas,she/her,University of Wisconsin,J2,Finance,Financial Analyst,Aya Healthcare,0.19508141
+R10,Education,pronoun_changed,pronoun,Noah Thomas,she/her,University of Wisconsin,J3,Marketing,Marketing Coordinator,Corcoran Sawyer Smith,0.32882097
+R10,Education,pronoun_changed,pronoun,Noah Thomas,she/her,University of Wisconsin,J4,Healthcare,Clinical Data Analyst,Insight Global,0.2651591
+R10,Education,pronoun_changed,pronoun,Noah Thomas,she/her,University of Wisconsin,J5,Education,Academic Advisor,Kennesaw State University,0.44656155
+R10,Education,university_changed,university,Noah Thomas,he/him,Bowie State University,J1,Software Engineering,Software Engineer,GOYT,0.22320583
+R10,Education,university_changed,university,Noah Thomas,he/him,Bowie State University,J2,Finance,Financial Analyst,Aya Healthcare,0.17997421
+R10,Education,university_changed,university,Noah Thomas,he/him,Bowie State University,J3,Marketing,Marketing Coordinator,Corcoran Sawyer Smith,0.3377753
+R10,Education,university_changed,university,Noah Thomas,he/him,Bowie State University,J4,Healthcare,Clinical Data Analyst,Insight Global,0.26408437
+R10,Education,university_changed,university,Noah Thomas,he/him,Bowie State University,J5,Education,Academic Advisor,Kennesaw State University,0.46712536
